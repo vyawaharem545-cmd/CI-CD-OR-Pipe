@@ -13,15 +13,30 @@
 					"secureOutput": false,
 					"secureInput": false
 				},
-				"userProperties": []
+				"userProperties": [],
+				"typeProperties": {
+					"fieldList": []
+				}
 			},
 			{
 				"name": "EachBlock",
 				"type": "ForEach",
-				"dependsOn": [],
+				"dependsOn": [
+					{
+						"activity": "Get FileList",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
 				"userProperties": []
 			}
 		],
+		"variables": {
+			"vProcessedFiles ": {
+				"type": "Array"
+			}
+		},
 		"annotations": []
 	}
 }
