@@ -71,7 +71,8 @@
 							},
 							"userProperties": [],
 							"typeProperties": {
-								"variableName": ""
+								"variableName": "vFileType",
+								"value": "@last(split(item().name,'.'))"
 							}
 						},
 						{
@@ -163,6 +164,9 @@
 				"type": "Array"
 			},
 			"vCurrentFile": {
+				"type": "String"
+			},
+			"vFileType": {
 				"type": "String"
 			}
 		},
