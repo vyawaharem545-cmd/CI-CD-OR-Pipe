@@ -19,7 +19,18 @@
 					}
 				],
 				"typeProperties": {
-					"fieldList": []
+					"dataset": {
+						"referenceName": "DS_Folder_Sales",
+						"type": "DatasetReference"
+					},
+					"fieldList": [],
+					"storeSettings": {
+						"type": "AzureBlobFSReadSettings",
+						"enablePartitionDiscovery": false
+					},
+					"formatSettings": {
+						"type": "DelimitedTextReadSettings"
+					}
 				}
 			},
 			{
