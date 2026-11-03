@@ -80,7 +80,7 @@
 							"typeProperties": {
 								"cases": [
 									{
-										"value": "Case1Txt",
+										"value": "Case1json",
 										"activities": [
 											{
 												"name": "Wait1",
@@ -88,7 +88,7 @@
 												"dependsOn": [],
 												"userProperties": [],
 												"typeProperties": {
-													"waitTimeInSeconds": 5
+													"waitTimeInSeconds": 15
 												}
 											}
 										]
