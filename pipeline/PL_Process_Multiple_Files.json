@@ -78,6 +78,10 @@
 							],
 							"userProperties": [],
 							"typeProperties": {
+								"on": {
+									"value": "@variables('vFileType')",
+									"type": "Expression"
+								},
 								"cases": [
 									{
 										"value": "Case1json",
