@@ -50,7 +50,8 @@
 							},
 							"userProperties": [],
 							"typeProperties": {
-								"variableName": ""
+								"variableName": "vCurrentFile",
+								"value": "@item().name"
 							}
 						},
 						{
@@ -160,6 +161,9 @@
 			},
 			"vProcessedFiles": {
 				"type": "Array"
+			},
+			"vCurrentFile": {
+				"type": "String"
 			}
 		},
 		"annotations": []
