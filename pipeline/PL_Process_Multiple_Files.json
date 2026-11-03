@@ -13,7 +13,11 @@
 					"secureOutput": false,
 					"secureInput": false
 				},
-				"userProperties": [],
+				"userProperties": [
+					{
+						"name": "@activity('GetFileList').output.childItems"
+					}
+				],
 				"typeProperties": {
 					"fieldList": []
 				}
@@ -31,9 +35,13 @@
 				],
 				"userProperties": [],
 				"typeProperties": {
+					"items": {
+						"value": "@activity('GetFileList').output.childItems",
+						"type": "Expression"
+					},
 					"activities": [
 						{
-							"name": "Set variable1",
+							"name": "FileName",
 							"type": "SetVariable",
 							"dependsOn": [],
 							"policy": {
@@ -46,11 +54,11 @@
 							}
 						},
 						{
-							"name": "Set variable2",
+							"name": "FileExtension",
 							"type": "SetVariable",
 							"dependsOn": [
 								{
-									"activity": "Set variable1",
+									"activity": "FileName",
 									"dependencyConditions": [
 										"Succeeded"
 									]
@@ -70,7 +78,7 @@
 							"type": "Switch",
 							"dependsOn": [
 								{
-									"activity": "Set variable2",
+									"activity": "FileExtension",
 									"dependencyConditions": [
 										"Succeeded"
 									]
