@@ -29,11 +29,115 @@
 						]
 					}
 				],
-				"userProperties": []
+				"userProperties": [],
+				"typeProperties": {
+					"activities": [
+						{
+							"name": "Set variable1",
+							"type": "SetVariable",
+							"dependsOn": [],
+							"policy": {
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": []
+						},
+						{
+							"name": "Set variable2",
+							"type": "SetVariable",
+							"dependsOn": [
+								{
+									"activity": "Set variable1",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"policy": {
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": []
+						},
+						{
+							"name": "csv",
+							"type": "Switch",
+							"dependsOn": [
+								{
+									"activity": "Set variable2",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"userProperties": [],
+							"typeProperties": {
+								"cases": [
+									{
+										"value": "Case1Txt",
+										"activities": [
+											{
+												"name": "Wait1",
+												"type": "Wait",
+												"dependsOn": [],
+												"userProperties": [],
+												"typeProperties": {
+													"waitTimeInSeconds": 5
+												}
+											}
+										]
+									},
+									{
+										"value": "Case2Csv",
+										"activities": [
+											{
+												"name": "Copy data1",
+												"type": "Copy",
+												"dependsOn": [],
+												"policy": {
+													"timeout": "0.12:00:00",
+													"retry": 0,
+													"retryIntervalInSeconds": 30,
+													"secureOutput": false,
+													"secureInput": false
+												},
+												"userProperties": [],
+												"typeProperties": {
+													"enableStaging": false
+												}
+											},
+											{
+												"name": "Append variable1",
+												"description": "Add Append Variable:\t\t\t\nVariable vProcessedFiles\nValue @item().name",
+												"type": "AppendVariable",
+												"dependsOn": [
+													{
+														"activity": "Copy data1",
+														"dependencyConditions": [
+															"Succeeded"
+														]
+													}
+												],
+												"userProperties": [],
+												"typeProperties": {
+													"variableName": "vProcessedFiles",
+													"value": "@item().name\n"
+												}
+											}
+										]
+									}
+								]
+							}
+						}
+					]
+				}
 			}
 		],
 		"variables": {
 			"vProcessedFiles ": {
+				"type": "Array"
+			},
+			"vProcessedFiles": {
 				"type": "Array"
 			}
 		},
