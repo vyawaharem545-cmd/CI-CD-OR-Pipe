@@ -40,7 +40,10 @@
 								"secureOutput": false,
 								"secureInput": false
 							},
-							"userProperties": []
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": ""
+							}
 						},
 						{
 							"name": "Set variable2",
@@ -57,10 +60,13 @@
 								"secureOutput": false,
 								"secureInput": false
 							},
-							"userProperties": []
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": ""
+							}
 						},
 						{
-							"name": "csv",
+							"name": "Switch",
 							"type": "Switch",
 							"dependsOn": [
 								{
@@ -121,7 +127,10 @@
 												"userProperties": [],
 												"typeProperties": {
 													"variableName": "vProcessedFiles",
-													"value": "@item().name\n"
+													"value": {
+														"value": "@item().name\n",
+														"type": "Expression"
+													}
 												}
 											}
 										]
