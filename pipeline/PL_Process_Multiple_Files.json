@@ -26,6 +26,7 @@
 					"fieldList": [],
 					"storeSettings": {
 						"type": "AzureBlobFSReadSettings",
+						"recursive": true,
 						"enablePartitionDiscovery": false
 					},
 					"formatSettings": {
@@ -62,7 +63,10 @@
 							"userProperties": [],
 							"typeProperties": {
 								"variableName": "vCurrentFile",
-								"value": "@item().name"
+								"value": {
+									"value": "@item().name",
+									"type": "Expression"
+								}
 							}
 						},
 						{
@@ -83,7 +87,10 @@
 							"userProperties": [],
 							"typeProperties": {
 								"variableName": "vFileType",
-								"value": "@last(split(item().name,'.'))"
+								"value": {
+									"value": "@last(split(item().name,'.'))",
+									"type": "Expression"
+								}
 							}
 						},
 						{
@@ -134,8 +141,54 @@
 												},
 												"userProperties": [],
 												"typeProperties": {
-													"enableStaging": false
-												}
+													"source": {
+														"type": "DelimitedTextSource",
+														"storeSettings": {
+															"type": "AzureBlobFSReadSettings",
+															"maxConcurrentConnections": 5,
+															"recursive": true,
+															"enablePartitionDiscovery": false
+														},
+														"formatSettings": {
+															"type": "DelimitedTextReadSettings"
+														}
+													},
+													"sink": {
+														"type": "DelimitedTextSink",
+														"storeSettings": {
+															"type": "AzureBlobFSWriteSettings"
+														},
+														"formatSettings": {
+															"type": "DelimitedTextWriteSettings",
+															"quoteAllText": true,
+															"fileExtension": ".txt"
+														}
+													},
+													"enableStaging": false,
+													"translator": {
+														"type": "TabularTranslator",
+														"typeConversion": true,
+														"typeConversionSettings": {
+															"allowDataTruncation": true,
+															"treatBooleanAsNumber": false
+														}
+													}
+												},
+												"inputs": [
+													{
+														"referenceName": "DS_Folder_Sales",
+														"type": "DatasetReference",
+														"parameters": {
+															"pFileName": "@item().name"
+														}
+													}
+												],
+												"outputs": [
+													{
+														"referenceName": "DS_Folder_Sales_Target",
+														"type": "DatasetReference"
+													}
+												]
 											},
 											{
 												"name": "Append variable1",
