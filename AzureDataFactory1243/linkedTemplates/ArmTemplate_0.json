@@ -310,6 +310,7 @@
 												"activities": [
 													{
 														"name": "Copy data1",
+														"description": "Copy files from sales bronze folder to processed silver folder in azure data lake gen 2 storage",
 														"type": "Copy",
 														"dependsOn": [],
 														"policy": {
@@ -336,12 +337,13 @@
 															"sink": {
 																"type": "DelimitedTextSink",
 																"storeSettings": {
-																	"type": "AzureBlobFSWriteSettings"
+																	"type": "AzureBlobFSWriteSettings",
+																	"copyBehavior": "FlattenHierarchy"
 																},
 																"formatSettings": {
 																	"type": "DelimitedTextWriteSettings",
 																	"quoteAllText": true,
-																	"fileExtension": ".txt"
+																	"fileExtension": ""
 																}
 															},
 															"enableStaging": false,
@@ -367,7 +369,9 @@
 															{
 																"referenceName": "DS_Folder_Sales_Target",
 																"type": "DatasetReference",
-																"parameters": {}
+																"parameters": {
+																	"pTargetFileName": "@item().name"
+																}
 															}
 														]
 													},
