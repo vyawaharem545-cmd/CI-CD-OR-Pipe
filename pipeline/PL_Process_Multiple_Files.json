@@ -23,7 +23,7 @@
 						"referenceName": "DS_Folder_Sales",
 						"type": "DatasetReference",
 						"parameters": {
-							"pFileName": "item().vprocessed_files"
+							"pFileName": "item().vProcessedFiles"
 						}
 					},
 					"fieldList": [],
