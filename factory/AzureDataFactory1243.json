@@ -1,6 +1,9 @@
 {
 	"name": "AzureDataFactory1243",
 	"properties": {
+		"globalConfigurations": {
+			"PolicyValidationEnabled": "true"
+		},
 		"trustModeClaimForMi": {
 			"value": "Disabled",
 			"editable": true
