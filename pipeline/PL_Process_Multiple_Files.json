@@ -21,7 +21,10 @@
 				"typeProperties": {
 					"dataset": {
 						"referenceName": "DS_Folder_Sales",
-						"type": "DatasetReference"
+						"type": "DatasetReference",
+						"parameters": {
+							"pFileName": "item().vprocessed_files"
+						}
 					},
 					"fieldList": [],
 					"storeSettings": {
@@ -225,6 +228,11 @@
 				}
 			}
 		],
+		"parameters": {
+			"pFileName": {
+				"type": "Array"
+			}
+		},
 		"variables": {
 			"vProcessedFiles ": {
 				"type": "Array"
