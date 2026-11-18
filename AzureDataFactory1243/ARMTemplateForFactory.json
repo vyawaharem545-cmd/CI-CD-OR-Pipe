@@ -803,6 +803,7 @@
 				"activities": [
 					{
 						"name": "Data Flow",
+						"description": "Pipeline",
 						"type": "ExecuteDataFlow",
 						"dependsOn": [],
 						"policy": {
