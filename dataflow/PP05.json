@@ -30,6 +30,12 @@
 			"transformations": [
 				{
 					"name": "derivedColumn"
+				},
+				{
+					"name": "joinsProductssales"
+				},
+				{
+					"name": "joinproductsalesstore"
 				}
 			],
 			"scriptLines": [
@@ -65,7 +71,17 @@
 				"     validateSchema: false,",
 				"     ignoreNoFilesFound: false) ~> products",
 				"sales derive(sales_amount = qty*unit_price,",
-				"          month_sales = toString(toDate(sale_date),'yyyy-MM')) ~> derivedColumn"
+				"          month_sales = toString(toDate(sale_date),'yyyy-MM')) ~> derivedColumn",
+				"derivedColumn, products join(sales@product_id == products@product_id,",
+				"     joinType:'left',",
+				"     matchType:'exact',",
+				"     ignoreSpaces: false,",
+				"     broadcast: 'auto')~> joinsProductssales",
+				"joinsProductssales, stores join(ERROR_FUNCTION('') == stores_id,",
+				"     joinType:'left',",
+				"     matchType:'exact',",
+				"     ignoreSpaces: false,",
+				"     broadcast: 'auto')~> joinproductsalesstore"
 			]
 		}
 	}
