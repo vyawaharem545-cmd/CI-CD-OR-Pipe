@@ -77,7 +77,7 @@
 				"     matchType:'exact',",
 				"     ignoreSpaces: false,",
 				"     broadcast: 'auto')~> joinsProductssales",
-				"joinsProductssales, stores join(ERROR_FUNCTION('') == stores_id,",
+				"joinsProductssales, stores join(sales@store_id == stores@store_id,",
 				"     joinType:'left',",
 				"     matchType:'exact',",
 				"     ignoreSpaces: false,",
