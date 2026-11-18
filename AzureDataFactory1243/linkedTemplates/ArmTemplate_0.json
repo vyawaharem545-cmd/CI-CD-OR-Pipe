@@ -652,6 +652,18 @@
 								"referenceName": "AzureDataLakeStorage1",
 								"type": "LinkedServiceReference"
 							}
+						},
+						{
+							"dataset": {
+								"referenceName": "Parquet1Storage",
+								"type": "DatasetReference"
+							},
+							"name": "sinksalesother",
+							"description": "Export data to Parquet1Storage ( only 1 o/p dataset )",
+							"rejectedDataLinkedService": {
+								"referenceName": "AzureDataLakeStorage1",
+								"type": "LinkedServiceReference"
+							}
 						}
 					],
 					"transformations": [
@@ -674,7 +686,10 @@
 							"name": "split1"
 						},
 						{
-							"name": "aggregate1"
+							"name": "aggregate"
+						},
+						{
+							"name": "sort1"
 						}
 					],
 					"scriptLines": [
@@ -751,15 +766,24 @@
 						"split1@highvalue aggregate(groupBy(region,",
 						"          category),",
 						"     total_qty = sum(qty),",
-						"          total_sales = sum(sales_amount)) ~> aggregate1",
-						"aggregate1 sink(allowSchemaDrift: true,",
+						"          total_sales = sum(sales_amount)) ~> aggregate",
+						"aggregate sort(desc(total_sales, true)) ~> sort1",
+						"sort1 sink(allowSchemaDrift: true,",
 						"     validateSchema: false,",
 						"     format: 'parquet',",
 						"     umask: 0022,",
 						"     preCommands: [],",
 						"     postCommands: [],",
 						"     skipDuplicateMapInputs: true,",
-						"     skipDuplicateMapOutputs: true) ~> sink"
+						"     skipDuplicateMapOutputs: true) ~> sink",
+						"split1@regularsales sink(allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     format: 'parquet',",
+						"     umask: 0022,",
+						"     preCommands: [],",
+						"     postCommands: [],",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true) ~> sinksalesother"
 					]
 				}
 			},
