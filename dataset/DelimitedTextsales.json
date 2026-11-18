@@ -1,0 +1,56 @@
+{
+	"name": "DelimitedTextsales",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureDataLakeStorage1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "sales_2026_03_02.csv",
+				"fileSystem": "sales"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "sale_id",
+				"type": "String"
+			},
+			{
+				"name": "sale_date",
+				"type": "String"
+			},
+			{
+				"name": "store_id",
+				"type": "String"
+			},
+			{
+				"name": "product_id",
+				"type": "String"
+			},
+			{
+				"name": "qty",
+				"type": "String"
+			},
+			{
+				"name": "unit_price",
+				"type": "String"
+			},
+			{
+				"name": "payment_mode",
+				"type": "String"
+			},
+			{
+				"name": "city",
+				"type": "String"
+			}
+		]
+	}
+}

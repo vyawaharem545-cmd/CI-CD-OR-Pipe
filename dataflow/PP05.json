@@ -1,0 +1,55 @@
+{
+	"name": "PP05",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "DelimitedTextstore",
+						"type": "DatasetReference"
+					},
+					"name": "stores"
+				},
+				{
+					"dataset": {
+						"referenceName": "DelimitedTextsales",
+						"type": "DatasetReference"
+					},
+					"name": "sales"
+				},
+				{
+					"name": "products"
+				}
+			],
+			"sinks": [],
+			"transformations": [],
+			"scriptLines": [
+				"source(output(",
+				"          store_id as string,",
+				"          store_name as string,",
+				"          region as string,",
+				"          manager as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> stores",
+				"source(output(",
+				"          sale_id as string,",
+				"          sale_date as string,",
+				"          store_id as string,",
+				"          product_id as string,",
+				"          qty as string,",
+				"          unit_price as string,",
+				"          payment_mode as string,",
+				"          city as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> sales",
+				"source(allowSchemaDrift: true,",
+				"     validateSchema: false) ~> products"
+			]
+		}
+	}
+}
