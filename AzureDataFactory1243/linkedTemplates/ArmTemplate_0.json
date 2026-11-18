@@ -669,6 +669,12 @@
 						},
 						{
 							"name": "surrogateKey"
+						},
+						{
+							"name": "split1"
+						},
+						{
+							"name": "aggregate1"
 						}
 					],
 					"scriptLines": [
@@ -740,7 +746,13 @@
 						"select keyGenerate(output(sales_sk as long),",
 						"     startAt: 1L,",
 						"     stepValue: 1L) ~> surrogateKey",
-						"surrogateKey sink(allowSchemaDrift: true,",
+						"surrogateKey split(sales_amount>=500,",
+						"     disjoint: false) ~> split1@(highvalue, regularsales)",
+						"split1@highvalue aggregate(groupBy(region,",
+						"          category),",
+						"     total_qty = sum(qty),",
+						"          total_sales = sum(sales_amount)) ~> aggregate1",
+						"aggregate1 sink(allowSchemaDrift: true,",
 						"     validateSchema: false,",
 						"     format: 'parquet',",
 						"     umask: 0022,",
