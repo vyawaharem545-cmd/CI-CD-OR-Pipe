@@ -19,11 +19,19 @@
 					"name": "sales"
 				},
 				{
+					"dataset": {
+						"referenceName": "DelimitedTextproducts",
+						"type": "DatasetReference"
+					},
 					"name": "products"
 				}
 			],
 			"sinks": [],
-			"transformations": [],
+			"transformations": [
+				{
+					"name": "derivedColumn"
+				}
+			],
 			"scriptLines": [
 				"source(output(",
 				"          store_id as string,",
@@ -35,20 +43,29 @@
 				"     validateSchema: false,",
 				"     ignoreNoFilesFound: false) ~> stores",
 				"source(output(",
-				"          sale_id as string,",
+				"          sale_id as short,",
 				"          sale_date as string,",
 				"          store_id as string,",
 				"          product_id as string,",
-				"          qty as string,",
-				"          unit_price as string,",
+				"          qty as short,",
+				"          unit_price as short,",
 				"          payment_mode as string,",
 				"          city as string",
 				"     ),",
 				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     ignoreNoFilesFound: false) ~> sales",
-				"source(allowSchemaDrift: true,",
-				"     validateSchema: false) ~> products"
+				"source(output(",
+				"          product_id as string,",
+				"          product_name as string,",
+				"          category as string,",
+				"          brand as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> products",
+				"sales derive(sales_amount = qty*unit_price,",
+				"          month_sales = toString(toDate(sale_date),'yyyy-MM')) ~> derivedColumn"
 			]
 		}
 	}
